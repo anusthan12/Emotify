@@ -6,3 +6,4 @@ opencv_contrib_python==4.5.5.62
 opencv_python==4.5.5.62
 streamlit==1.9.0
 streamlit_webrtc==0.37.0
+protobuf==3.20.1
