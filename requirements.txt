@@ -1,9 +1,1 @@
-av==10.0.0
-keras==2.7.0
-mediapipe==0.8.9.1
-numpy==1.21.5
-opencv_contrib_python==4.5.5.62
-opencv_python==4.5.5.62
-streamlit==1.9.0
-streamlit_webrtc==0.37.0
-protobuf==3.20.1
+
