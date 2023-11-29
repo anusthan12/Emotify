@@ -1,5 +1,5 @@
 import streamlit as st
-from streamlit_webrtc import webrtc_streamer
+from streamlit_webrtc import webrtc_streamer 
 import av
 import cv2 
 import numpy as np 
@@ -14,16 +14,15 @@ hands = mp.solutions.hands
 holis = holistic.Holistic()
 drawing = mp.solutions.drawing_utils
 
-st.header("Emotion Based Music Recommender")
+st.header("Emotify web scan")
 
 if "run" not in st.session_state:
 	st.session_state["run"] = "true"
-
 try:
 	emotion = np.load("emotion.npy")[0]
 except:
 	emotion=""
-
+ 
 if not(emotion):
 	st.session_state["run"] = "true"
 else:
@@ -33,7 +32,6 @@ class EmotionProcessor:
 	def recv(self, frame):
 		frm = frame.to_ndarray(format="bgr24")
 
-		##############################
 		frm = cv2.flip(frm, 1)
 
 		res = holis.process(cv2.cvtColor(frm, cv2.COLOR_BGR2RGB))
@@ -80,16 +78,33 @@ class EmotionProcessor:
 		return av.VideoFrame.from_ndarray(frm, format="bgr24")
 
 
-webrtc_streamer(key="key", desired_playing_state=True,video_processor_factory=EmotionProcessor)
+webrtc_streamer(key="key", desired_playing_state=True, video_processor_factory=EmotionProcessor)
 
 btn = st.button("Recommend me songs")
 
-if btn:
-	if not(emotion):
-		st.warning("Please let me capture your emotion first")
-		st.session_state["run"] = "true"
-	else:
-    		webbrowser.open(f"https://www.youtube.com/results?search_query={emotion}")
-    		np.save("emotion.npy", np.array([""]))
-    		st.session_state["run"] = "false"   
 
+if btn:
+    if not (emotion):
+        st.warning("Please let me capture you")
+        st.session_state["run"] = "true"
+    elif(emotion=="happy"):
+        webbrowser.open(f"https://happyemotify.vercel.app/")
+        np.save("emotion.npy", np.array([""]))
+        st.session_state["run"]= "false"
+    elif(emotion=="sad"):
+        webbrowser.open(f"https://sademotify.vercel.app/")
+        np.save("emotion.npy", np.array([""]))
+        st.session_state["run"]= "false"
+    elif(emotion=="neutral"):
+        webbrowser.open(f"https://neutralemotify.vercel.app/")
+        np.save("emotion.npy", np.array([""]))
+        st.session_state["run"]= "false"
+    elif(emotion=="angry"):
+        webbrowser.open(f"https://angeremotify.vercel.app/")
+        np.save("emotion.npy", np.array([""]))
+        st.session_state["run"]= "false"        
+    else:
+        webbrowser.open(f"https://emotifyplayer.vercel.app/")
+        np.save("emotion.npy", np.array([""]))
+        st.session_state["run"]= "false"
+	
